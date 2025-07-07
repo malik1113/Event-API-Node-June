@@ -10,8 +10,10 @@ const PORT = 3000;
 app.use(logger("dev"))
 app.use(express.json())
 
+// Routers
+const userRouter = require("./routes/users/userRoute")
 
-
+app.use("/api/users", userRouter)
 
 
 app.listen(PORT, () => {
