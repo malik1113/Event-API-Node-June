@@ -19,6 +19,10 @@ const eventRouter = require("./routes/events/eventRoute")
 
 app.use("/api/events", eventRouter)
 
+const bookingRouter = require("./routes/bookings/bookingRoute");
+
+app.use("/api/bookings", bookingRouter)
+
 app.listen(PORT, () => {
     console.log(`Server is listening on Port: ${PORT}`)
 
