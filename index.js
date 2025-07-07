@@ -15,6 +15,9 @@ const userRouter = require("./routes/users/userRoute")
 
 app.use("/api/users", userRouter)
 
+const eventRouter = require("./routes/events/eventRoute")
+
+app.use("/api/events", eventRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is listening on Port: ${PORT}`)
