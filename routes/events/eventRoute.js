@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { createEvent, getEvents, getEventById } = require("./eventController");
+const {
+  createEvent,
+  getEvents,
+  getEventById,
+  updateEventById,
+} = require("./eventController");
 
 router.get("/", async (req, res) => {
   try {
@@ -23,11 +28,11 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const event = await getEventById(req.params.id)
+    const event = await getEventById(req.params.id);
     res.status(200).json({
-        message: "success",
-        payload: event
-    })
+      message: "success",
+      payload: event,
+    });
   } catch (error) {
     res.json({
       message: "failure",
@@ -42,6 +47,21 @@ router.post("/", async (req, res) => {
     res.json({
       message: "Event has been successfully created",
       payload: newEvent,
+    });
+  } catch (error) {
+    res.json({
+      message: "failure",
+      payload: error.message,
+    });
+  }
+});
+
+router.put("/:eventId", async (req, res) => {
+  try {
+    const updatedEvent = await updateEventById(req.params.eventId, req.body);
+    res.json({
+      message: "success",
+      payload: updatedEvent,
     });
   } catch (error) {
     res.json({

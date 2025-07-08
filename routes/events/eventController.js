@@ -61,6 +61,7 @@ const getEvents = async (filterQueries) => {
         //sortBy = 1
         // will evaluate to price - adds the price key to our sortObject
         sortObject[filterQueries.sortBy] = 1; // 1 for ascending
+        // sortObject["price"] -> sortObject.price
       }
     }
 
@@ -76,8 +77,27 @@ const getEvents = async (filterQueries) => {
     // const events = await Event.find({ category: filterQueries.category });
     // .sort(key: 1) = ascending sort
     // .sort(key: -1) = descending sort
+    // queryObject /events?category=price -> { category: price  }
     const events = await Event.find(queryObject).sort(sortObject);
     return events;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// way to figure what event we are updating - event id /:eventId
+// req.params.eventId
+
+// what to update - everything specified in req.body
+const updateEventById = async (eventId, eventData) => {
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+        eventId, 
+        eventData, 
+        {new: true}); // allows it to return updated data
+    console.log("updated");
+    console.log(updatedEvent);
+    return updatedEvent;
   } catch (error) {
     throw error;
   }
@@ -87,4 +107,5 @@ module.exports = {
   createEvent,
   getEvents,
   getEventById,
+  updateEventById,
 };
