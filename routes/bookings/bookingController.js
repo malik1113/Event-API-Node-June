@@ -3,6 +3,17 @@ const Booking = require("./bookingModel");
 const { getEventById } = require("../events/eventController");
 const Event = require("../events/eventModel");
 
+const getAllBookings = async () => {
+  try {
+    const bookings = await Booking.find()
+      .populate("user", "username email -_id")
+      .populate("event", "title -_id");
+    return bookings;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const createBooking = async (bookingData) => {
   try {
     // utilize our existing controller to grab the event by its ID in order for us to calculate the price
@@ -38,4 +49,5 @@ const createBooking = async (bookingData) => {
 
 module.exports = {
   createBooking,
+  getAllBookings,
 };

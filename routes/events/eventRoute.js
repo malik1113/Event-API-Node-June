@@ -5,7 +5,10 @@ const { createEvent, getEvents, getEventById } = require("./eventController");
 
 router.get("/", async (req, res) => {
   try {
-    const events = await getEvents();
+    // events?category=fun&minPrice=5
+    // req.query.category = fun
+    // req.query.minPrice = 5
+    const events = await getEvents(req.query);
     res.json({
       message: "success",
       payload: events,
